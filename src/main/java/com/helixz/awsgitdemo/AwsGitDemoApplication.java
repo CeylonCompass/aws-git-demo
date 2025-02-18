@@ -6,10 +6,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
 @SpringBootApplication
+@EnableJpaAuditing
 public class AwsGitDemoApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(AwsGitDemoApplication.class, args);
     }
-
 }
