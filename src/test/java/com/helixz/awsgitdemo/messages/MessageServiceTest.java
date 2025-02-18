@@ -31,6 +31,11 @@ public class MessageServiceTest {
     }
 
     @Test
+    void test_createMessage_whenNull() {
+        assertNull(service.createMessage(null), "Expected message : Null");
+    }
+
+    @Test
     void test_createMessage_whenEmpty() {
         assertNull(service.createMessage(""), "Expected message : Null");
     }

@@ -16,13 +16,13 @@ import java.util.List;
  * @author Chamith Kodikara
  */
 @RestController
-@RequestMapping("/message")
 @RequiredArgsConstructor
+@RequestMapping("api/messages")
 public class MessageController {
 
     private final MessageService service;
 
-    @GetMapping("/all")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Message> getAllMessage() {
         return service.getAllMessages();
@@ -31,6 +31,6 @@ public class MessageController {
     @PostMapping
     public ResponseEntity<Object> createMessage(@RequestBody MessageRequest request) {
         Message message = service.createMessage(request.getContent());
-        return (message == null) ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body("") : ResponseEntity.status(HttpStatus.CREATED).body(message);
+        return (message == null) ? ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid request body.") : ResponseEntity.status(HttpStatus.CREATED).body(message);
     }
 }

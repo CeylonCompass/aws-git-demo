@@ -24,7 +24,7 @@ public class MessageService {
     }
 
     public Message createMessage(String content) {
-        if (content.isBlank())
+        if (content == null || content.isBlank())
             return null;
         Message newMessage = new Message();
         newMessage.setMessage(content);
