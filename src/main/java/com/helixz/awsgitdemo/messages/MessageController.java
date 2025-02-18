@@ -16,13 +16,13 @@ import java.util.List;
  * @author Chamith Kodikara
  */
 @RestController
-@RequestMapping("/message")
+@RequestMapping("api/messages")
 @RequiredArgsConstructor
 public class MessageController {
 
     private final MessageService service;
 
-    @GetMapping("/all")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<Message> getAllMessage() {
         return service.getAllMessages();
