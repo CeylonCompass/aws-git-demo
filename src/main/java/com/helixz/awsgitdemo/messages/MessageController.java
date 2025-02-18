@@ -1,6 +1,8 @@
 package com.helixz.awsgitdemo.messages;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +18,8 @@ public class MessageController {
 
     private final MessageService messageService;
     @PostMapping
-    public String createMessage(@RequestBody Message message) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public String createMessage(@Valid @RequestBody Message message) {
         messageService.createMessage(message);
         return "message saved successfully!";
     }
