@@ -1,4 +1,4 @@
-#Service port
+# Service port
 server:
   port: 8080
 
@@ -9,34 +9,31 @@ logging:
     org.springframework.security: INFO
     org.springframework.security.oauth2: INFO
   pattern:
-    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
 
 spring:
   application:
     name: AWS Git Demo
 
-#  profiles:
-#    default: local
+  # Profiles
+  # profiles:
+  #   default: local
 
-  #Datasource properties
+  # Datasource properties
   datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/aws_git_demo_db
     username: root
-    password: admin
+    password: 12345
     hikari:
       maximum-pool-size: 2
+
   jpa:
     show-sql: false
-    open-in-view:
-    #    generate-ddl: false
-    #    properties:
-    #      hibernate:
-    #        format_sql: true
-    #    hibernate:
-    #      ddl-auto: update
-
-
-
-
-
+    open-in-view: false
+    generate-ddl: false
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: update

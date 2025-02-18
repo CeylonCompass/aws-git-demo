@@ -1,8 +1,14 @@
 package com.helixz.awsgitdemo.messages;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * @author Chamith Kodikara
@@ -10,5 +16,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class MessageService {
+
+    private  final MessageRepository messageRepository;
+
+    public Message saveMessage(Message message) {
+        return messageRepository.save(message);
+    }
+
+    public List<Message> getAllMessages() {
+        List<Message> messageList =new ArrayList<>( messageRepository.findAll());
+        messageList.sort(Comparator.comparing(Message::getCreatedDate).reversed());
+        return messageList;
+    }
 }
