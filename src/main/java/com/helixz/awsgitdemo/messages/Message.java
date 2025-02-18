@@ -1,5 +1,6 @@
 package com.helixz.awsgitdemo.messages;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,5 +32,6 @@ public class Message {
     private LocalDateTime createdDate;
 
     @LastModifiedDate
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private LocalDateTime lastModifiedDate;
 }
