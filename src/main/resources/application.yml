@@ -23,18 +23,18 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/aws_git_demo_db
     username: root
-    password: admin
+    password: chami
     hikari:
       maximum-pool-size: 2
   jpa:
     show-sql: false
     open-in-view:
-    #    generate-ddl: false
-    #    properties:
-    #      hibernate:
-    #        format_sql: true
-    #    hibernate:
-    #      ddl-auto: update
+    generate-ddl: false
+    properties:
+      hibernate:
+      format_sql: true
+    hibernate:
+      ddl-auto: update
 
 
 
