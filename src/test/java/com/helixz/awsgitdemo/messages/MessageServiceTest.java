@@ -31,6 +31,11 @@ public class MessageServiceTest {
     }
 
     @Test
+    void test_createMessage_whenNull() {
+        assertNull(service.createMessage(null), "Expected message : Null");
+    }
+
+    @Test
     void test_createMessage_whenEmpty() {
         assertNull(service.createMessage(""), "Expected message : Null");
     }
@@ -42,8 +47,7 @@ public class MessageServiceTest {
 
     @Test
     void test_createMessage_successful() {
-        Message mockMessage = new Message();
-        mockMessage.setMessage("Test message!");
+        Message mockMessage = Message.builder().message("Test message!").build();
 
         when(repository.save(any(Message.class))).thenReturn(mockMessage);
 

@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -24,11 +23,8 @@ public class MessageService {
     }
 
     public Message createMessage(String content) {
-        if (content.isBlank())
+        if (content == null || content.isBlank())
             return null;
-        Message newMessage = new Message();
-        newMessage.setMessage(content);
-        newMessage.setCreatedDate(LocalDateTime.now());
-        return repository.save(newMessage);
+        return repository.save(Message.builder().message(content).build());
     }
 }
