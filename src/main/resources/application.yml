@@ -21,9 +21,9 @@ spring:
   #Datasource properties
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/aws_git_demo_db
+    url: jdbc:mysql://localhost:3307/aws_git_demo_db
     username: root
-    password: admin
+    password: 12345
     hikari:
       maximum-pool-size: 2
   jpa:
@@ -33,8 +33,8 @@ spring:
     #    properties:
     #      hibernate:
     #        format_sql: true
-    #    hibernate:
-    #      ddl-auto: update
+        hibernate:
+          ddl-auto: update
 
 
 
