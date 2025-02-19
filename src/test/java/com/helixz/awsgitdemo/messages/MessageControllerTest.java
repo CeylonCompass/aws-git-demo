@@ -5,40 +5,40 @@ import org.mockito.Mockito;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MessageControllerTest {
 
     MessageRepository messageRepository = Mockito.mock(MessageRepository.class);
-    MessageService messageService = new MessageService(messageRepository);
+    MessageMapper messageMapper = Mockito.mock(MessageMapper.class);
+    MessageService messageService = new MessageService(messageRepository, messageMapper);
     MessageController controller = new MessageController(messageService);
 
     @Test
     void createMessage_ValidMessage_ReturnsOkResponse() {
-        Message validMessage = new Message();
-        validMessage.setMessage("Test message");
-        ResponseEntity<Object> response = controller.persist(validMessage);
+        MessageDto validMessage = new MessageDto.MessageDtoBuilder().content("Valid Message").build();
+        ResponseEntity<MessageDto> response = controller.persist(validMessage);
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
     void createMessage_NullMessage_ReturnsBadRequestResponse() {
-        Message nullMessage = new Message();
-        ResponseEntity<Object> response = controller.persist(nullMessage);
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        MessageDto nullMessage = new MessageDto.MessageDtoBuilder().build();
+        assertThrows(EmptyOrNullBodyException.class, () -> controller.persist(nullMessage));
     }
 
     @Test
     void createMessage_EmptyMessage_ReturnsBadRequestResponse() {
-        Message emptyMessage = new Message();
-        emptyMessage.setMessage("");
-        ResponseEntity<Object> response = controller.persist(emptyMessage);
-        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        MessageDto emptyMessage = new MessageDto.MessageDtoBuilder().content("").build();
+        assertThrows(EmptyOrNullBodyException.class, () -> controller.persist(emptyMessage));
     }
 
     @Test
     void getAllMessages_ReturnsSuccessResponse() {
-        ResponseEntity<Object> response = controller.getAllMessages();
+        ResponseEntity<List<MessageDto>> response = controller.getAllMessages();
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 }

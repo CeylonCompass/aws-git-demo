@@ -7,7 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Chamith Kodikara
@@ -19,20 +20,29 @@ import java.util.HashMap;
 public class MessageService {
 
     private final MessageRepository messageRepository;
+    private final MessageMapper messageMapper;
 
-    public ResponseEntity<Object> createMessage(Message message) {
-        if (message.getMessage() == null || message.getMessage().isBlank()) {
-            HashMap<String, String> body = new HashMap<>();
-            body.put("error", "content must not be empty/null");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
+    public ResponseEntity<MessageDto> createMessage(MessageDto message) {
+        if (message.content() == null || message.content().isBlank()) {
+            throw new EmptyOrNullBodyException("content must not be empty/nul");
         } else {
             return ResponseEntity.ok().body(
-                    messageRepository.save(message)
+                    messageMapper.messageToMessageDto(
+                            messageRepository.save(
+                                    messageMapper.messageDtoToMessage(message)
+                            )
+                    )
             );
         }
     }
 
-    public ResponseEntity<Object> getAllMessages() {
-        return new ResponseEntity<>(messageRepository.findAllByOrderByCreatedDateDesc(), HttpStatus.OK);
+    public ResponseEntity<List<MessageDto>> getAllMessages() {
+        List<Message> messages = messageRepository.findAllByOrderByCreatedDateDesc();
+
+        List<MessageDto> messageDtos = messages.stream()
+                .map(messageMapper::messageToMessageDto)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(messageDtos, HttpStatus.OK);
     }
 }

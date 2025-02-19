@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 /**
  * @author Chamith Kodikara
@@ -16,13 +18,13 @@ public class MessageController {
     private final MessageService messageService;
 
     @GetMapping("messages")
-    public ResponseEntity<Object> getAllMessages() {
+    public ResponseEntity<List<MessageDto>> getAllMessages() {
         return messageService.getAllMessages();
     }
 
 
-    @PostMapping("message")
-    public ResponseEntity<Object> persist(@RequestBody Message message) {
+    @PostMapping("messages")
+    public ResponseEntity<MessageDto> persist(@RequestBody MessageDto message) {
         return messageService.createMessage(message);
     }
 }
