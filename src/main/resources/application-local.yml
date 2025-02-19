@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/aws_git_demo_db
+    username: root
+    password: admin
