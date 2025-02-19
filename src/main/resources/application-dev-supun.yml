@@ -14,16 +14,15 @@ logging:
 spring:
   application:
     name: AWS Git Demo
-
-  #  profiles:
-  #    default: local
-
+  sql:
+    init:
+      mode: always
   #Datasource properties
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/aws_git_demo_db
     username: root
-    password: admin
+    password: 1234
     hikari:
       maximum-pool-size: 2
   jpa:
@@ -33,5 +32,9 @@ spring:
     #    properties:
     #      hibernate:
     #        format_sql: true
-    #    hibernate:
-    #      ddl-auto: update
+
+
+
+
+
+
