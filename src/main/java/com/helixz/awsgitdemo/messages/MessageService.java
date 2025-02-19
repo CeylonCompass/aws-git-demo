@@ -1,5 +1,7 @@
 package com.helixz.awsgitdemo.messages;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.helixz.awsgitdemo.exception.impl.ValidationFailedException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author Chamith Kodikara
@@ -24,30 +27,32 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MessageService {
 
-
     private final MessageRepository messageRepository;
+    private final ObjectMapper objectMapper;
 
-    public ResponseEntity<?> createMessage(String content) {
-        if (content == null || content.trim().isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(Collections.singletonMap("error", "Content must not be empty/null"));
-        }
+
+    public ResponseEntity<MessageDTO> createMessage(String content) {
+        if (content == null || content.trim().isEmpty())
+            throw new ValidationFailedException("Content must not be empty/null");
 
         Message message = new Message();
         message.setMessage(content);
-        Message savedMessage = messageRepository.save(message);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(objectMapper.convertValue(messageRepository.save(message),MessageDTO.class));
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("id", savedMessage.getId());
-        response.put("content", savedMessage.getMessage());
-        response.put("createdAt", savedMessage.getCreatedDate());
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
 
-    public ResponseEntity<?> getMessage(){
-        return  ResponseEntity.ok(messageRepository.findAllByOrderByCreatedDateDesc());
+    public ResponseEntity<List<MessageDTO>> getMessages() {
+        List<MessageDTO> messageDTOs = messageRepository.findAllByOrderByCreatedDateDesc()
+                .stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.CREATED).body(messageDTOs);
+    }
+
+    private MessageDTO convertToDto(Message message) {
+        return new MessageDTO(message.getId(), message.getMessage(), message.getCreatedDate());
     }
 
 }
