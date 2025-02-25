@@ -1,5 +1,6 @@
-package com.helixz.awsgitdemo.messages;
+package com.helixz.awsgitdemo.users;
 
+import com.helixz.awsgitdemo.messages.Message;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -8,29 +9,25 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * @author Chamith Kodikara
- */
 @Slf4j
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class MessageService {
+public class UserService {
+    private final UserRepository repository;
 
-    private final MessageRepository messageRepository;
-
-    public Message createMessage(Message message) {
-        return messageRepository.save(message);
+    public User createUser(User user) {
+        return repository.save(user);
     }
 
-    public Page<Message> searchMessages(String searchTerm, Pageable pageable) {
-        Page<Message> messages;
+    public Page<User> searchUsers(String searchTerm, Pageable pageable) {
+        Page<User> users;
         if (StringUtils.isBlank(searchTerm)) {
-            messages = messageRepository.findAll(pageable);
+            users = repository.findAll(pageable);
         } else {
             searchTerm = new StringBuilder().append("%").append(searchTerm).append("%").toString();
-            messages = messageRepository.findAll(searchTerm, pageable);
+            users = repository.findAll(searchTerm, pageable);
         }
-        return messages;
+        return users;
     }
 }
