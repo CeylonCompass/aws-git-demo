@@ -1,12 +1,20 @@
 package com.helixz.awsgitdemo.messages;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Map;
+
+import com.helixz.awsgitdemo.messages.dto.MessageCreateRequest;
+import com.helixz.awsgitdemo.messages.dto.MessageCreateResponse;
+import com.helixz.awsgitdemo.messages.dto.MessageGetResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Chamith Kodikara
@@ -17,15 +25,20 @@ import java.util.Map;
 public class MessageController {
 
     private final MessageService messageService;
+    private final MessageMapper messageMapper;
 
-    @PostMapping
-    public ResponseEntity<MessageDTO> createMessage(@RequestBody Map<String, String>  content) {
-        String messageContent = content.get("content");
-        return messageService.createMessage(messageContent);
+
+    @Operation(summary = "Create new message")
+    @ApiResponse(responseCode = "201", description = "Successfully created new message")
+    @ApiResponse(responseCode = "400", description = "if request body is invalid")
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MessageCreateResponse> createNewMessage(@RequestBody @Validated MessageCreateRequest request) {
+        Message message = messageService.createMessage(messageMapper.toMessageEntity(request));
+        return new ResponseEntity<>(messageMapper.toMessageResponse(message), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<MessageDTO>> getMessages () {
+    public ResponseEntity<List<MessageGetResponse>> getMessages () {
         return messageService.getMessages();
     }
 }

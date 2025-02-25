@@ -1,9 +1,9 @@
 package com.helixz.awsgitdemo.messages.dto;
 
+import java.util.List;
+
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * @author Chamith Kodikara
@@ -23,4 +23,3 @@ public class MessageSearchResponse {
         private int pageSize;
     }
 }
-
