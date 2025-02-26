@@ -1,17 +1,14 @@
 package com.helixz.awsgitdemo.messages;
 
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
-
-
+import java.util.List;
 
 
 /**
@@ -25,19 +22,24 @@ public class MessageService {
 
     private final MessageRepository messageRepository;
 
-    public Message createMessage(Message message) {
-        return messageRepository.save(message);
+    public ResponseEntity<Message> createMessage(Message message) {
+        if (message ==null){
+            log.error("Message is null");
+            return ResponseEntity.badRequest().build();
+        }
+        Message saveMessage = messageRepository.save(message);
+
+        return new ResponseEntity<>(saveMessage,HttpStatus.CREATED);
+
+
+
     }
 
-    public Page<Message> searchMessages(String searchTerm, Pageable pageable) {
-        Page<Message> messages;
-        if (StringUtils.isBlank(searchTerm)) {
-            messages = messageRepository.findAll(pageable);
-        } else {
-            searchTerm = new StringBuilder().append("%").append(searchTerm).append("%").toString();
-            messages = messageRepository.findAll(searchTerm, pageable);
-        }
-        return messages;
+    public List<Message> getMessage(){
+        return messageRepository.findAll(Sort.by(Sort.Direction.DESC,"createdDate"));
     }
+
+
+
 
 }
