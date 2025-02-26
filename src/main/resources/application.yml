@@ -16,24 +16,22 @@ spring:
     name: AWS Git Demo
 
   # Profiles
-  # profiles:
-  #   default: local
+  profiles:
+    default: local
 
   # Datasource properties
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/aws_git_demo_db
-    username: root
-    password: 12345
+    username:
+    password:
     hikari:
       maximum-pool-size: 2
 
   jpa:
-    show-sql: false
+    show-sql: true
     open-in-view: false
-    generate-ddl: false
-    properties:
-      hibernate:
-        format_sql: true
-    hibernate:
-      ddl-auto: update
+
+  liquibase:
+    enabled: true
+    change-log: classpath:/liquibase/master.xml
