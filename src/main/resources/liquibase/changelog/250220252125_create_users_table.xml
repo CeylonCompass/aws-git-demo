@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="janith">
+        <createTable tableName="users">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="pk_users"/>
+            </column>
+            <column name="first_name" type="varchar(250)"/>
+            <column name="last_name" type="varchar(250)"/>
+            <column name="email" type="varchar(250)"/>
+            <column name="password" type="varchar(250)"/>
+            <column name="username" type="varchar(250)"/>
+            <column name="created_date" type="datetime(6)"/>
+            <column name="last_modified_date" type="datetime(6)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

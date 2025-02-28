@@ -1,4 +1,4 @@
-package com.helixz.awsgitdemo.messages;
+package com.helixz.awsgitdemo.users;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -10,22 +10,27 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-/**
- * @author Chamith Kodikara
- */
-@Getter
-@Setter
 @Entity
+@Setter
+@Getter
 @NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
-@Table(catalog = "aws_git_demo_db", name = "message")
-public class Message {
+@EntityListeners({AuditingEntityListener.class})
+@Table(catalog = "aws_git_demo_db", name = "users")
+public class UserDetailsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String message;
+    private String firstName;
+
+    private String lastName;
+
+    private String email;
+
+    private String username;
+
+    private String password;
 
     @CreatedDate
     private LocalDateTime createdDate;
@@ -33,5 +38,5 @@ public class Message {
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
 
-    private Long user_id;
+
 }
