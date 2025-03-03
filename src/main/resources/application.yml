@@ -21,22 +21,22 @@ spring:
   #Datasource properties
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/aws_git_demo_db
+    url: jdbc:mysql://localhost:3307/aws_git_demo_db
     username: root
-    password: admin
+    password: 12345
     hikari:
       maximum-pool-size: 2
   jpa:
     show-sql: false
-    open-in-view:
-    #    generate-ddl: false
-    #    properties:
-    #      hibernate:
-    #        format_sql: true
-    #    hibernate:
-    #      ddl-auto: update
+    open-in-view: false
 
+  liquibase:
+    enabled: true
+    change-log: classpath:/liquibase/master.xml
 
+springdoc:
+  api-docs:
+    path: /api-docs
 
 
 
