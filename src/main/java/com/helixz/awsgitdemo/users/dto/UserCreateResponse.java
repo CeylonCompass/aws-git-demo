@@ -1,8 +1,8 @@
 package com.helixz.awsgitdemo.users.dto;
 
-import lombok.Builder;
-
 import java.time.LocalDateTime;
+
+import lombok.Builder;
 
 @Builder
 public record UserCreateResponse (
