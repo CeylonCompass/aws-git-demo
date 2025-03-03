@@ -2,12 +2,12 @@ package com.helixz.awsgitdemo.messages;
 
 import java.util.List;
 
-import com.helixz.awsgitdemo.messages.dto.MessageGetResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 import com.helixz.awsgitdemo.messages.dto.MessageCreateRequest;
 import com.helixz.awsgitdemo.messages.dto.MessageCreateResponse;
+import com.helixz.awsgitdemo.messages.dto.MessageGetResponse;
 
 /**
  * @author Chamith Kodikara

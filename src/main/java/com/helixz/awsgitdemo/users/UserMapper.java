@@ -1,11 +1,12 @@
 package com.helixz.awsgitdemo.users;
 
-import com.helixz.awsgitdemo.users.dto.UserCreateRequest;
-import com.helixz.awsgitdemo.users.dto.UserCreateResponse;
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
-import java.util.List;
+import com.helixz.awsgitdemo.users.dto.UserCreateRequest;
+import com.helixz.awsgitdemo.users.dto.UserCreateResponse;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {

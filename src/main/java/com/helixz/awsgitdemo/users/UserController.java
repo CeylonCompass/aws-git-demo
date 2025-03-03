@@ -1,11 +1,6 @@
 package com.helixz.awsgitdemo.users;
-import com.helixz.awsgitdemo.users.dto.UserCreateRequest;
-import com.helixz.awsgitdemo.users.dto.UserCreateResponse;
-import com.helixz.awsgitdemo.users.dto.UserSearchResponse;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +12,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.helixz.awsgitdemo.users.dto.UserCreateRequest;
+import com.helixz.awsgitdemo.users.dto.UserCreateResponse;
+import com.helixz.awsgitdemo.users.dto.UserSearchResponse;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/users")
