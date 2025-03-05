@@ -16,7 +16,7 @@ spring:
     name: AWS Git Demo
 
   profiles:
-    default: local
+    default:
 
   #Datasource properties
   datasource:
